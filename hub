@@ -1,0 +1,4 @@
+#!/bin/zsh
+# Запускає hubctl.py у віртуальному середовищі проєкту.
+root="${0:A:h}"
+exec "$root/.venv/bin/python" "$root/hubctl.py" "$@"

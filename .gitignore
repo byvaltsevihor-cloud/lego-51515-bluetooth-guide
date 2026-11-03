@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Журнали сеансів і копії програм містять дані конкретного хаба.
+logs/
+backup/
+extra_files_hash.orig
