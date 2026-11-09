@@ -18,6 +18,7 @@ MicroPython-консоль хаба.
     ./hub backup                 скопіювати програми з хаба на Mac
     ./hub drive                  керувати Blast із клавіатури
     ./hub inforeply              перевірити відповідь хаба на запит застосунку про версію
+    ./hub pad                    керувати Blast із контролера PlayStation 5 (--check: лише контролер)
 """
 
 import argparse
@@ -696,6 +697,9 @@ def build_parser():
     drive_parser = commands.add_parser("drive", help="Керувати Blast із клавіатури")
     drive_parser.add_argument("--speed", type=int, default=35, help="Початкова швидкість, типово 35")
     drive_parser.add_argument("--check", action="store_true", help="Перевірка без руху")
+    pad_parser = commands.add_parser("pad", help="Керувати Blast із контролера PlayStation 5")
+    pad_parser.add_argument("--speed", type=int, default=30, help="Початкова швидкість, типово 30")
+    pad_parser.add_argument("--check", action="store_true", help="Перевірити контролер без хаба")
     run_exec = commands.add_parser("exec", help="Виконати Python-код на хабі")
     run_exec.add_argument("code")
     run_exec.add_argument("--timeout", type=int, default=60)
@@ -784,6 +788,9 @@ def main():
     args = build_parser().parse_args()
     link = None
     try:
+        if args.command == "pad" and args.check:
+            import ps5pad
+            return ps5pad.check()
         if args.command == "inforeply":
             ensure_no_competing_apps()
             link = HubLink(args.address)
@@ -792,6 +799,13 @@ def main():
         link = open_ready_link(args.address)
         if args.command == "backup":
             backup_projects(link)
+            return 0
+        if args.command == "pad":
+            import ps5pad
+            try:
+                ps5pad.drive(link, run_quiet, DRIVE_HELPERS, args.speed)
+            except RuntimeError as error:
+                raise HubError(str(error))
             return 0
         if args.command == "drive":
             if args.check:
