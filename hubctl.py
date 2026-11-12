@@ -758,7 +758,7 @@ def info_reply_check(link):
     try:
         reply = json.loads(line)["r"]
     except ValueError:
-        print("Відповідь пошкоджена: без кінця повідомлення або обрізана. Див. розділ 1 у TROUBLESHOOTING.md.")
+        print("Відповідь пошкоджена: без кінця повідомлення або обрізана. Див. SPIKE-LEGACY-FIX.md.")
         link.interrupt()
         return 1
     print("Відповідь правильна, довжина: %d символів." % len(line))
