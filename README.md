@@ -2,6 +2,8 @@
 
 Працює через Bluetooth, без кабелю й без офіційного застосунку LEGO.
 
+Якщо SPIKE Legacy після оновлення постійно показує «Update Hub»: [SPIKE-LEGACY-FIX.md](SPIKE-LEGACY-FIX.md).
+
 Проблеми з підключенням до SPIKE Legacy і Robot Inventor: [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
 ## Команди
